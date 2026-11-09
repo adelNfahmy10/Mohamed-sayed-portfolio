@@ -3,209 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
-    <title>Conference Portfolio | Tradeline</title>
+
+    <title>Conference Gallery</title>
 
     <style>
-      .conference-portfolio {
-        padding: 50px 0;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
         background: #fff;
-        color: #111827;
-        overflow: hidden;
+      }
+
+      .conference-portfolio {
+        width: 100%;
+        padding: 50px 20px;
+        background: #fff;
       }
 
       .conference-wrap {
-        width: min(1240px, calc(100% - 48px));
+        width: 100%;
+        max-width: 1240px;
         margin: auto;
-      }
-
-      .conference-heading {
-        max-width: 760px;
-        margin-bottom: 45px;
-      }
-
-      .conference-eyebrow {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: #0077ed;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        margin-bottom: 20px;
-      }
-
-      .conference-eyebrow span {
-        width: 28px;
-        height: 2px;
-        background: #0077ed;
-      }
-
-      .conference-heading h2 {
-        font-size: clamp(38px, 5vw, 64px);
-        font-weight: 750;
-        line-height: 1.08;
-        letter-spacing: -2.5px;
-        margin: 0 0 22px;
-      }
-
-      .conference-heading h2 span {
-        color: #0077ed;
-      }
-
-      .conference-heading p {
-        max-width: 650px;
-        color: #687386;
-        font-size: 16px;
-        line-height: 1.8;
-        margin: 0;
-      }
-
-      /* Filters */
-
-      .conference-filters {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 32px;
-      }
-
-      .filter-btn {
-        padding: 11px 20px;
-        border: 1px solid #e5eaf0;
-        border-radius: 50px;
-        background: transparent;
-        color: #596273;
-        font-size: 13px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: 0.3s ease;
-      }
-
-      .filter-btn:hover,
-      .filter-btn.active {
-        background: #0077ed;
-        color: #fff;
-        border-color: #0077ed;
       }
 
       /* Gallery */
 
       .conference-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 22px;
       }
 
       .conference-card {
-        min-width: 0;
-        transition:
-          opacity 0.3s ease,
-          transform 0.3s ease;
-      }
-
-      .conference-card.hidden {
-        display: none;
-      }
-
-      .conference-image {
         position: relative;
-        height: 340px;
+        height: 290px;
         overflow: hidden;
         border-radius: 12px;
-        background: #e9edf2;
+        background: #f1f3f5;
         cursor: pointer;
+        animation: fadeIn 0.5s ease both;
       }
 
-      .conference-image img {
+      .conference-card img {
+        display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
-        transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+        transition: transform 0.6s ease;
       }
 
-      .conference-image:hover img {
-        transform: scale(1.08);
+      .conference-card:hover img {
+        transform: scale(1.07);
       }
 
-      .conference-overlay {
+      .conference-card::after {
+        content: "";
         position: absolute;
         inset: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 25px;
-        color: #fff;
-        background: linear-gradient(
-          180deg,
-          transparent 10%,
-          rgba(0, 0, 0, 0.2) 40%,
-          rgba(0, 0, 0, 0.88) 100%
-        );
+        background: rgba(0, 0, 0, 0);
+        transition: background 0.3s ease;
+        pointer-events: none;
       }
 
-      .conference-overlay > span {
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: #80bdff;
-        margin-bottom: 9px;
-      }
-
-      .conference-overlay h3 {
-        max-width: 85%;
-        font-size: 20px;
-        font-weight: 650;
-        margin: 0 0 7px;
-        line-height: 1.35;
-      }
-
-      .conference-overlay p {
-        max-width: 85%;
-        color: rgba(255, 255, 255, 0.78);
-        font-size: 12px;
-        line-height: 1.5;
-        margin: 0;
-      }
-
-      .view-image {
-        position: absolute;
-        right: 22px;
-        bottom: 25px;
-        width: 42px;
-        height: 42px;
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.12);
-        color: #fff;
-        font-size: 20px;
-        cursor: pointer;
-        backdrop-filter: blur(8px);
-        transition: 0.3s ease;
-      }
-
-      .view-image:hover {
-        background: #0077ed;
-        border-color: #0077ed;
-        transform: rotate(45deg);
-      }
-
-      /* Counter */
-
-      .conference-count {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 22px;
-        color: #687386;
-        font-size: 13px;
-      }
-
-      .conference-count strong {
-        color: #0077ed;
-        font-size: 18px;
+      .conference-card:hover::after {
+        background: rgba(0, 0, 0, 0.12);
       }
 
       /* Lightbox */
@@ -214,507 +79,392 @@
         position: fixed;
         inset: 0;
         z-index: 99999;
-        display: none;
+        display: flex;
         align-items: center;
         justify-content: center;
-        padding: 60px;
-        background: rgba(5, 12, 23, 0.96);
+        padding: 25px;
+        background: rgba(0, 0, 0, 0.95);
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.3s ease;
       }
 
-      .conference-lightbox.active {
+      .conference-lightbox.open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .lightbox-content {
+        position: relative;
         display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 1100px;
+        height: 100%;
+        transform: scale(0.95);
+        transition: 0.3s ease;
       }
 
-      .conference-lightbox img {
-        max-width: 100%;
-        max-height: 80vh;
-        object-fit: contain;
-        border-radius: 5px;
+      .conference-lightbox.open .lightbox-content {
+        transform: scale(1);
       }
+
+      .lightbox-image {
+        display: block;
+        max-width: 100%;
+        max-height: 85vh;
+        object-fit: contain;
+        border-radius: 6px;
+      }
+
+      /* Controls */
 
       .lightbox-close,
       .lightbox-prev,
       .lightbox-next {
         position: absolute;
-        border: 0;
-        background: transparent;
+        z-index: 5;
+        display: grid;
+        place-items: center;
+        width: 45px;
+        height: 45px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
         color: #fff;
+        font-size: 27px;
         cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .lightbox-close:hover,
+      .lightbox-prev:hover,
+      .lightbox-next:hover {
+        background: #0077ed;
+        border-color: #0077ed;
       }
 
       .lightbox-close {
-        top: 25px;
-        right: 35px;
-        font-size: 38px;
-      }
-
-      .lightbox-prev,
-      .lightbox-next {
-        top: 50%;
-        font-size: 30px;
-        padding: 15px;
-        transform: translateY(-50%);
+        top: 15px;
+        right: 15px;
       }
 
       .lightbox-prev {
-        left: 20px;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
       }
 
       .lightbox-next {
-        right: 20px;
-      }
-
-      .lightbox-caption {
-        position: absolute;
-        bottom: 20px;
-        left: 15px;
         right: 15px;
-        color: #fff;
-        font-size: 14px;
-        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
       }
 
       /* Responsive */
 
-      @media (max-width: 992px) {
+      @media (max-width: 991px) {
         .conference-grid {
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px;
         }
 
-        .conference-image {
-          height: 300px;
+        .conference-card {
+          height: 260px;
         }
       }
 
       @media (max-width: 600px) {
         .conference-portfolio {
-          padding: 50px 0;
-        }
-
-        .conference-wrap {
-          width: calc(100% - 32px);
-        }
-
-        .conference-heading h2 {
-          letter-spacing: -1.5px;
-        }
-
-        .conference-heading p {
-          font-size: 14px;
+          padding: 30px 14px;
         }
 
         .conference-grid {
           grid-template-columns: 1fr;
-          gap: 16px;
+          gap: 15px;
         }
 
-        .conference-image {
+        .conference-card {
           height: 280px;
         }
 
-        .conference-filters {
-          gap: 8px;
-        }
-
-        .filter-btn {
-          padding: 9px 14px;
-          font-size: 11px;
-        }
-
         .conference-lightbox {
-          padding: 20px;
+          padding: 12px;
+        }
+
+        .lightbox-image {
+          max-height: 75vh;
+        }
+
+        .lightbox-close {
+          top: 10px;
+          right: 10px;
         }
 
         .lightbox-prev {
-          left: 0;
+          left: 8px;
         }
 
         .lightbox-next {
-          right: 0;
+          right: 8px;
+        }
+
+        .lightbox-close,
+        .lightbox-prev,
+        .lightbox-next {
+          width: 38px;
+          height: 38px;
+          font-size: 23px;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
       }
     </style>
   </head>
 
   <body>
-    <section class="conference-portfolio" id="conference-portfolio">
+    <section class="conference-portfolio">
       <div class="conference-wrap">
-        <div class="conference-heading">
-          <div class="conference-eyebrow">
-            <span></span>
-            OUR EXPERIENCE
+        <div class="conference-grid" id="conferenceGrid">
+          <div class="conference-card">
+            <img
+              src="./images/event-1.jpeg"
+              alt="Conference event 1"
+              loading="lazy"
+            />
           </div>
 
-          <h2>
-            Conferences That Make
-            <span>an Impact.</span>
-          </h2>
+          <div class="conference-card">
+            <img
+              src="./images/event-2.jpeg"
+              alt="Conference event 2"
+              loading="lazy"
+            />
+          </div>
 
-          <p>
-            Explore our conference portfolio and discover the events we've been
-            proud to be part of, supporting leading medical societies,
-            universities, and healthcare institutions across Egypt.
-          </p>
-        </div>
+          <div class="conference-card">
+            <img
+              src="./images/event-3.jpeg"
+              alt="Conference event 3"
+              loading="lazy"
+            />
+          </div>
 
-        <div class="conference-count">
-          <strong>10</strong>
-          <span>Featured Conferences & Events</span>
-        </div>
+          <div class="conference-card">
+            <img
+              src="./images/event-4.jpeg"
+              alt="Conference event 4"
+              loading="lazy"
+            />
+          </div>
 
-        <div class="conference-filters">
-          <button class="filter-btn active" data-filter="all">
-            All Conferences
-          </button>
+          <div class="conference-card">
+            <img
+              src="./images/event-5.jpeg"
+              alt="Conference event 5"
+              loading="lazy"
+            />
+          </div>
 
-          <button class="filter-btn" data-filter="radiology">Radiology</button>
+          <div class="conference-card">
+            <img
+              src="./images/event-6.jpeg"
+              alt="Conference event 6"
+              loading="lazy"
+            />
+          </div>
 
-          <button class="filter-btn" data-filter="medical">
-            Medical Conferences
-          </button>
+          <div class="conference-card">
+            <img
+              src="./images/event-7.jpeg"
+              alt="Conference event 7"
+              loading="lazy"
+            />
+          </div>
 
-          <button class="filter-btn" data-filter="university">
-            Universities
-          </button>
-        </div>
+          <div class="conference-card">
+            <img
+              src="./images/event-8.jpeg"
+              alt="Conference event 8"
+              loading="lazy"
+            />
+          </div>
 
-        <div class="conference-grid">
-          <!-- 1. ESTIR -->
-          <article class="conference-card" data-category="radiology">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=85"
-                alt="ESTIR Conference"
-                loading="lazy"
-              />
+          <div class="conference-card">
+            <img
+              src="./images/event-9.jpeg"
+              alt="Conference event 9"
+              loading="lazy"
+            />
+          </div>
 
-              <div class="conference-overlay">
-                <span>Radiology Conference</span>
-                <h3>ESTIR Conference</h3>
-                <p>Egyptian Society of Therapeutic Interventional Radiology</p>
-                <button class="view-image" aria-label="View ESTIR image">
-                  ↗
-                </button>
-              </div>
-            </div>
-          </article>
+          <div class="conference-card">
+            <img
+              src="./images/event-10.jpeg"
+              alt="Conference event 10"
+              loading="lazy"
+            />
+          </div>
 
-          <!-- 2. Radio Alex -->
-          <article class="conference-card" data-category="university">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=85"
-                alt="Radio Alex Conference"
-                loading="lazy"
-              />
+          <div class="conference-card">
+            <img
+              src="./images/event-11.jpeg"
+              alt="Conference event 11"
+              loading="lazy"
+            />
+          </div>
 
-              <div class="conference-overlay">
-                <span>University Conference</span>
-                <h3>Radio Alex</h3>
-                <p>Alexandria University</p>
-                <button class="view-image" aria-label="View Radio Alex image">
-                  ↗
-                </button>
-              </div>
-            </div>
-          </article>
+          <div class="conference-card">
+            <img
+              src="./images/event-12.jpeg"
+              alt="Conference event 12"
+              loading="lazy"
+            />
+          </div>
 
-          <!-- 3. Oncology -->
-          <article class="conference-card" data-category="medical">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=85"
-                alt="Oncology Conference"
-                loading="lazy"
-              />
+          <div class="conference-card">
+            <img
+              src="./images/event-13.jpeg"
+              alt="Conference event 13"
+              loading="lazy"
+            />
+          </div>
 
-              <div class="conference-overlay">
-                <span>Medical Conference</span>
-                <h3>Oncology Conference</h3>
-                <p>Minia Oncology Institute</p>
-                <button class="view-image" aria-label="View Oncology image">
-                  ↗
-                </button>
-              </div>
-            </div>
-          </article>
+          <div class="conference-card">
+            <img
+              src="./images/event-14.jpeg"
+              alt="Conference event 14"
+              loading="lazy"
+            />
+          </div>
 
-          <!-- 4. ESLM -->
-          <article class="conference-card" data-category="medical">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1000&q=85"
-                alt="ESLM Conference"
-                loading="lazy"
-              />
+          <div class="conference-card">
+            <img
+              src="./images/event-15.jpeg"
+              alt="Conference event 15"
+              loading="lazy"
+            />
+          </div>
 
-              <div class="conference-overlay">
-                <span>Medical Conference</span>
-                <h3>ESLM Conference</h3>
-                <p>Egyptian Society of Laboratory Medicine</p>
-                <button class="view-image" aria-label="View ESLM image">
-                  ↗
-                </button>
-              </div>
-            </div>
-          </article>
+          <div class="conference-card">
+            <img
+              src="./images/event-16.jpeg"
+              alt="Conference event 16"
+              loading="lazy"
+            />
+          </div>
 
-          <!-- 5. Shira -->
-          <article class="conference-card" data-category="radiology">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1000&q=85"
-                alt="Shira Conference"
-                loading="lazy"
-              />
-
-              <div class="conference-overlay">
-                <span>Radiology Conference</span>
-                <h3>Shira Conference</h3>
-                <p>Zagazig</p>
-                <button class="view-image" aria-label="View Shira image">
-                  ↗
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <!-- 6. Benha -->
-          <article class="conference-card" data-category="university">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=1000&q=85"
-                alt="Benha University Radiology Conference"
-                loading="lazy"
-              />
-
-              <div class="conference-overlay">
-                <span>University Conference</span>
-                <h3>Benha University Radiology Conference</h3>
-                <p>Benha University</p>
-                <button class="view-image" aria-label="View Benha image">
-                  ↗
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <!-- 7. Anesthesia -->
-          <article class="conference-card" data-category="medical">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=1000&q=85"
-                alt="Anesthesia Conference"
-                loading="lazy"
-              />
-
-              <div class="conference-overlay">
-                <span>Medical Conference</span>
-                <h3>Anesthesia Conference</h3>
-                <p>Kasr Al Ainy</p>
-                <button class="view-image" aria-label="View Anesthesia image">
-                  ↗
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <!-- 8. Ain Shams -->
-          <article class="conference-card" data-category="radiology university">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1503428593586-e225b39bddfe?auto=format&fit=crop&w=1000&q=85"
-                alt="Ain Shams Radiology Conference"
-                loading="lazy"
-              />
-
-              <div class="conference-overlay">
-                <span>Radiology Conference</span>
-                <h3>Ain Shams Radiology Conference</h3>
-                <p>Ain Shams University</p>
-                <button class="view-image" aria-label="View Ain Shams image">
-                  ↗
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <!-- 9. Kasr Al Ainy -->
-          <article class="conference-card" data-category="radiology university">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1000&q=85"
-                alt="Kasr Al Ainy Radiology Conference"
-                loading="lazy"
-              />
-
-              <div class="conference-overlay">
-                <span>Radiology Conference</span>
-                <h3>Kasr Al Ainy Radiology Conference</h3>
-                <p>Kasr Al Ainy</p>
-                <button class="view-image" aria-label="View Kasr Al Ainy image">
-                  ↗
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <!-- 10. EIRC 2025 -->
-          <article class="conference-card" data-category="radiology medical">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1000&q=85"
-                alt="The 4th Egyptian International Radiology Conference EIRC 2025"
-                loading="lazy"
-              />
-
-              <div class="conference-overlay">
-                <span>International Conference · 2025</span>
-                <h3>
-                  The 4th Egyptian International Radiology Conference (EIRC
-                  2025)
-                </h3>
-                <p>Ministry of Health and Population (MOHP)</p>
-                <button class="view-image" aria-label="View EIRC image">
-                  ↗
-                </button>
-              </div>
-            </div>
-          </article>
+          <div class="conference-card">
+            <img
+              src="./images/event-17.jpeg"
+              alt="Conference event 17"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Image Lightbox -->
-    <div
-      class="conference-lightbox"
-      id="conferenceLightbox"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Conference image preview"
-    >
-      <button class="lightbox-close" aria-label="Close">&times;</button>
+    <!-- Lightbox -->
 
-      <button class="lightbox-prev" aria-label="Previous image">
-        &#10094;
-      </button>
+    <div class="conference-lightbox" id="conferenceLightbox" aria-hidden="true">
+      <div class="lightbox-content">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+          ×
+        </button>
 
-      <img src="" alt="Conference preview" id="lightboxImage" />
+        <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous">
+          ‹
+        </button>
 
-      <button class="lightbox-next" aria-label="Next image">&#10095;</button>
+        <img class="lightbox-image" id="lightboxImage" src="" alt="" />
 
-      <div class="lightbox-caption" id="lightboxCaption"></div>
+        <button class="lightbox-next" id="lightboxNext" aria-label="Next">
+          ›
+        </button>
+      </div>
     </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const cards = [...document.querySelectorAll(".conference-card")];
-        const filters = document.querySelectorAll(".filter-btn");
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = Array.from(document.querySelectorAll(".conference-card"));
 
         const lightbox = document.getElementById("conferenceLightbox");
         const lightboxImage = document.getElementById("lightboxImage");
-        const lightboxCaption = document.getElementById("lightboxCaption");
 
-        const closeBtn = document.querySelector(".lightbox-close");
-        const prevBtn = document.querySelector(".lightbox-prev");
-        const nextBtn = document.querySelector(".lightbox-next");
+        const closeButton = document.getElementById("lightboxClose");
+        const prevButton = document.getElementById("lightboxPrev");
+        const nextButton = document.getElementById("lightboxNext");
 
-        let visibleCards = [];
         let currentIndex = 0;
-
-        // Filter conferences
-        function updateVisibleCards(filter = "all") {
-          cards.forEach((card) => {
-            const categories = card.dataset.category.split(" ");
-            const show = filter === "all" || categories.includes(filter);
-
-            card.classList.toggle("hidden", !show);
-          });
-
-          visibleCards = cards.filter(
-            (card) => !card.classList.contains("hidden"),
-          );
-        }
-
-        filters.forEach((button) => {
-          button.addEventListener("click", () => {
-            filters.forEach((btn) => btn.classList.remove("active"));
-
-            button.classList.add("active");
-
-            updateVisibleCards(button.dataset.filter);
-          });
-        });
-
-        updateVisibleCards();
-
-        // Lightbox
-        function updateLightbox() {
-          const card = visibleCards[currentIndex];
-
-          if (!card) return;
-
-          const img = card.querySelector("img");
-          const title = card.querySelector("h3");
-
-          lightboxImage.src = img.src;
-          lightboxImage.alt = img.alt;
-          lightboxCaption.textContent = title.textContent;
-        }
 
         function openLightbox(index) {
           currentIndex = index;
           updateLightbox();
 
-          lightbox.classList.add("active");
+          lightbox.classList.add("open");
+          lightbox.setAttribute("aria-hidden", "false");
           document.body.style.overflow = "hidden";
+        }
 
-          closeBtn.focus();
+        function updateLightbox() {
+          const image = cards[currentIndex].querySelector("img");
+
+          lightboxImage.src = image.src;
+          lightboxImage.alt = image.alt;
         }
 
         function closeLightbox() {
-          lightbox.classList.remove("active");
+          lightbox.classList.remove("open");
+          lightbox.setAttribute("aria-hidden", "true");
           document.body.style.overflow = "";
         }
 
+        function previousImage() {
+          currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+
+          updateLightbox();
+        }
+
         function nextImage() {
-          if (!visibleCards.length) return;
-
-          currentIndex = (currentIndex + 1) % visibleCards.length;
-          updateLightbox();
-        }
-
-        function prevImage() {
-          if (!visibleCards.length) return;
-
-          currentIndex =
-            (currentIndex - 1 + visibleCards.length) % visibleCards.length;
+          currentIndex = (currentIndex + 1) % cards.length;
 
           updateLightbox();
         }
 
-        cards.forEach((card) => {
-          card.addEventListener("click", () => {
-            const index = visibleCards.indexOf(card);
-
-            if (index !== -1) openLightbox(index);
+        cards.forEach(function (card, index) {
+          card.addEventListener("click", function () {
+            openLightbox(index);
           });
         });
 
-        closeBtn.addEventListener("click", closeLightbox);
-        nextBtn.addEventListener("click", nextImage);
-        prevBtn.addEventListener("click", prevImage);
+        closeButton.addEventListener("click", closeLightbox);
+        prevButton.addEventListener("click", previousImage);
+        nextButton.addEventListener("click", nextImage);
 
-        lightbox.addEventListener("click", (event) => {
-          if (event.target === lightbox) closeLightbox();
+        lightbox.addEventListener("click", function (event) {
+          if (event.target === lightbox) {
+            closeLightbox();
+          }
         });
 
-        document.addEventListener("keydown", (event) => {
-          if (!lightbox.classList.contains("active")) return;
+        document.addEventListener("keydown", function (event) {
+          if (!lightbox.classList.contains("open")) return;
 
           if (event.key === "Escape") closeLightbox();
+          if (event.key === "ArrowLeft") previousImage();
           if (event.key === "ArrowRight") nextImage();
-          if (event.key === "ArrowLeft") prevImage();
         });
       });
     </script>
