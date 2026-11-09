@@ -14,20 +14,83 @@
       }
 
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Inter", "Arial", sans-serif;
         background: #fff;
+        color: #101828;
       }
 
+      /* Portfolio Section */
+
       .conference-portfolio {
+        position: relative;
         width: 100%;
-        padding: 50px 20px;
-        background: #fff;
+        padding: 85px 24px 95px;
+        overflow: hidden;
+        background:
+          radial-gradient(
+            ellipse at 50% 0%,
+            rgba(0, 119, 237, 0.055),
+            transparent 48%
+          ),
+          #ffffff;
       }
 
       .conference-wrap {
+        position: relative;
         width: 100%;
-        max-width: 1240px;
+        max-width: 1320px;
         margin: auto;
+      }
+
+      /* Header */
+
+      .conference-header {
+        text-align: center;
+        max-width: 760px;
+        margin: 0 auto 52px;
+      }
+
+      .conference-header span {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #0077ed;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 3.5px;
+        margin-bottom: 20px;
+      }
+
+      .conference-header span::before,
+      .conference-header span::after {
+        content: "";
+        width: 24px;
+        height: 1px;
+        background: #0077ed;
+        opacity: 0.55;
+      }
+
+      .conference-header h2 {
+        color: #101828;
+        font-size: clamp(36px, 5vw, 56px);
+        font-weight: 800;
+        line-height: 1.12;
+        letter-spacing: -2.2px;
+        margin-bottom: 18px;
+      }
+
+      .conference-header h2 strong {
+        color: #0077ed;
+        font-weight: 800;
+      }
+
+      .conference-header p {
+        max-width: 590px;
+        margin: auto;
+        color: #667085;
+        font-size: 15px;
+        line-height: 1.9;
+        font-weight: 400;
       }
 
       /* Gallery */
@@ -35,17 +98,24 @@
       .conference-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 22px;
+        gap: 24px;
       }
 
       .conference-card {
         position: relative;
-        height: 290px;
+        height: 310px;
         overflow: hidden;
-        border-radius: 12px;
-        background: #f1f3f5;
-        cursor: pointer;
-        animation: fadeIn 0.5s ease both;
+        border-radius: 16px;
+        background: #f2f4f7;
+        cursor: zoom-in;
+        isolation: isolate;
+        box-shadow:
+          0 4px 15px rgba(16, 24, 40, 0.045),
+          0 1px 3px rgba(16, 24, 40, 0.04);
+        animation: fadeIn 0.7s ease both;
+        transition:
+          transform 0.45s ease,
+          box-shadow 0.45s ease;
       }
 
       .conference-card img {
@@ -53,24 +123,47 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.6s ease;
+        transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
       }
 
-      .conference-card:hover img {
-        transform: scale(1.07);
+      .conference-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: inherit;
+        pointer-events: none;
       }
 
       .conference-card::after {
         content: "";
         position: absolute;
         inset: 0;
-        background: rgba(0, 0, 0, 0);
-        transition: background 0.3s ease;
+        z-index: 1;
+        background: linear-gradient(
+          180deg,
+          transparent 55%,
+          rgba(5, 15, 30, 0.16) 100%
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
         pointer-events: none;
       }
 
+      .conference-card:hover {
+        transform: translateY(-7px);
+        box-shadow:
+          0 22px 45px rgba(16, 24, 40, 0.12),
+          0 5px 15px rgba(0, 119, 237, 0.08);
+      }
+
+      .conference-card:hover img {
+        transform: scale(1.075);
+      }
+
       .conference-card:hover::after {
-        background: rgba(0, 0, 0, 0.12);
+        opacity: 1;
       }
 
       /* Lightbox */
@@ -82,11 +175,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 25px;
-        background: rgba(0, 0, 0, 0.95);
+        padding: 35px;
+        background: rgba(5, 10, 20, 0.96);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
         opacity: 0;
         visibility: hidden;
-        transition: 0.3s ease;
+        transition:
+          opacity 0.35s ease,
+          visibility 0.35s ease;
       }
 
       .conference-lightbox.open {
@@ -100,25 +197,26 @@
         align-items: center;
         justify-content: center;
         width: 100%;
-        max-width: 1100px;
+        max-width: 1250px;
         height: 100%;
-        transform: scale(0.95);
-        transition: 0.3s ease;
+        transform: scale(0.94) translateY(10px);
+        transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
       }
 
       .conference-lightbox.open .lightbox-content {
-        transform: scale(1);
+        transform: scale(1) translateY(0);
       }
 
       .lightbox-image {
         display: block;
         max-width: 100%;
-        max-height: 85vh;
+        max-height: 84vh;
         object-fit: contain;
-        border-radius: 6px;
+        border-radius: 10px;
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
       }
 
-      /* Controls */
+      /* Lightbox Controls */
 
       .lightbox-close,
       .lightbox-prev,
@@ -127,15 +225,18 @@
         z-index: 5;
         display: grid;
         place-items: center;
-        width: 45px;
-        height: 45px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        width: 50px;
+        height: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.09);
         color: #fff;
-        font-size: 27px;
+        font-size: 30px;
+        font-weight: 300;
         cursor: pointer;
-        transition: 0.25s ease;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.3s ease;
       }
 
       .lightbox-close:hover,
@@ -143,6 +244,8 @@
       .lightbox-next:hover {
         background: #0077ed;
         border-color: #0077ed;
+        box-shadow: 0 0 25px rgba(0, 119, 237, 0.35);
+        transform: scale(1.08);
       }
 
       .lightbox-close {
@@ -156,37 +259,95 @@
         transform: translateY(-50%);
       }
 
+      .lightbox-prev:hover {
+        transform: translateY(-50%) scale(1.08);
+      }
+
       .lightbox-next {
         right: 15px;
         top: 50%;
         transform: translateY(-50%);
       }
 
-      /* Responsive */
+      .lightbox-next:hover {
+        transform: translateY(-50%) scale(1.08);
+      }
 
-      @media (max-width: 991px) {
-        .conference-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 16px;
+      /* Animation */
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
         }
 
-        .conference-card {
-          height: 260px;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
       }
 
-      @media (max-width: 600px) {
+      /* Tablet */
+
+      @media (max-width: 991px) {
         .conference-portfolio {
-          padding: 30px 14px;
+          padding: 65px 22px 75px;
         }
 
         .conference-grid {
-          grid-template-columns: 1fr;
-          gap: 15px;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 18px;
         }
 
         .conference-card {
           height: 280px;
+        }
+
+        .conference-header {
+          margin-bottom: 40px;
+        }
+      }
+
+      /* Mobile */
+
+      @media (max-width: 600px) {
+        .conference-portfolio {
+          padding: 48px 16px 55px;
+        }
+
+        .conference-header {
+          margin-bottom: 30px;
+        }
+
+        .conference-header span {
+          font-size: 10px;
+          letter-spacing: 2.5px;
+          margin-bottom: 15px;
+        }
+
+        .conference-header h2 {
+          font-size: 35px;
+          letter-spacing: -1.5px;
+          margin-bottom: 13px;
+        }
+
+        .conference-header p {
+          font-size: 13px;
+          line-height: 1.8;
+        }
+
+        .conference-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        .conference-card {
+          height: 270px;
+          border-radius: 13px;
+        }
+
+        .conference-card:hover {
+          transform: none;
         }
 
         .conference-lightbox {
@@ -195,39 +356,43 @@
 
         .lightbox-image {
           max-height: 75vh;
+          border-radius: 7px;
         }
 
         .lightbox-close {
-          top: 10px;
-          right: 10px;
+          top: 12px;
+          right: 12px;
         }
 
         .lightbox-prev {
-          left: 8px;
+          left: 5px;
         }
 
         .lightbox-next {
-          right: 8px;
+          right: 5px;
         }
 
         .lightbox-close,
         .lightbox-prev,
         .lightbox-next {
-          width: 38px;
-          height: 38px;
-          font-size: 23px;
+          width: 40px;
+          height: 40px;
+          font-size: 24px;
         }
       }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(15px);
-        }
+      /* Reduced Motion */
 
-        to {
-          opacity: 1;
-          transform: translateY(0);
+      @media (prefers-reduced-motion: reduce) {
+        .conference-card,
+        .conference-card img,
+        .conference-lightbox,
+        .lightbox-content,
+        .lightbox-close,
+        .lightbox-prev,
+        .lightbox-next {
+          animation: none;
+          transition: none;
         }
       }
     </style>
@@ -235,6 +400,15 @@
 
   <body>
     <section class="conference-portfolio">
+      <div class="conference-header">
+        <span>OUR PORTFOLIO</span>
+        <h2>Our Work in <strong>Action.</strong></h2>
+        <p>
+          A glimpse into the events and experiences we've proudly brought to
+          life.
+        </p>
+      </div>
+
       <div class="conference-wrap">
         <div class="conference-grid" id="conferenceGrid">
           <div class="conference-card">
