@@ -4,8 +4,625 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
+    <style>
+      .conference-portfolio {
+        padding: 110px 0;
+        background: #fff;
+        color: #111827;
+        overflow: hidden;
+      }
+
+      .conference-wrap {
+        width: min(1240px, calc(100% - 48px));
+        margin: auto;
+      }
+
+      .conference-heading {
+        max-width: 720px;
+        margin-bottom: 45px;
+      }
+
+      .conference-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #0077ed;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+      }
+
+      .conference-eyebrow span {
+        width: 28px;
+        height: 2px;
+        background: #0077ed;
+      }
+
+      .conference-heading h2 {
+        font-size: clamp(38px, 5vw, 64px);
+        font-weight: 750;
+        line-height: 1.08;
+        letter-spacing: -2.5px;
+        margin: 0 0 22px;
+      }
+
+      .conference-heading h2 span {
+        color: #0077ed;
+      }
+
+      .conference-heading p {
+        max-width: 600px;
+        color: #687386;
+        font-size: 16px;
+        line-height: 1.8;
+        margin: 0;
+      }
+
+      /* Filters */
+
+      .conference-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 32px;
+      }
+
+      .filter-btn {
+        padding: 11px 20px;
+        border: 1px solid #e5eaf0;
+        border-radius: 50px;
+        background: transparent;
+        color: #596273;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: #0077ed;
+        color: #fff;
+        border-color: #0077ed;
+      }
+
+      /* Gallery */
+
+      .conference-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+
+      .conference-card {
+        min-width: 0;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      .conference-card.hidden {
+        display: none;
+      }
+
+      .conference-image {
+        position: relative;
+        height: 340px;
+        overflow: hidden;
+        border-radius: 12px;
+        background: #e9edf2;
+        cursor: pointer;
+      }
+
+      .conference-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+      }
+
+      .conference-image:hover img {
+        transform: scale(1.08);
+      }
+
+      .conference-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 25px;
+        color: #fff;
+        background: linear-gradient(
+          180deg,
+          transparent 20%,
+          rgba(0, 0, 0, 0.15) 45%,
+          rgba(0, 0, 0, 0.82) 100%
+        );
+        transition: background 0.3s ease;
+      }
+
+      .conference-overlay > span {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #80bdff;
+        margin-bottom: 8px;
+      }
+
+      .conference-overlay h3 {
+        max-width: 80%;
+        font-size: 21px;
+        font-weight: 650;
+        margin: 0;
+        line-height: 1.35;
+      }
+
+      .view-image {
+        position: absolute;
+        right: 22px;
+        bottom: 23px;
+        width: 42px;
+        height: 42px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        backdrop-filter: blur(8px);
+        transition: 0.3s ease;
+      }
+
+      .view-image:hover {
+        background: #0077ed;
+        border-color: #0077ed;
+        transform: rotate(45deg);
+      }
+
+      /* Footer */
+
+      .conference-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        padding-top: 38px;
+        margin-top: 42px;
+        border-top: 1px solid #e9edf2;
+      }
+
+      .conference-footer p {
+        margin: 0;
+        color: #687386;
+        font-size: 15px;
+      }
+
+      .conference-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 20px;
+        padding: 15px 23px;
+        border-radius: 5px;
+        background: #0077ed;
+        color: #fff;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 650;
+        transition: 0.3s ease;
+      }
+
+      .conference-cta:hover {
+        background: #005fc0;
+        color: #fff;
+        transform: translateY(-3px);
+      }
+
+      .conference-cta span {
+        font-size: 18px;
+      }
+
+      /* Lightbox */
+
+      .conference-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 60px;
+        background: rgba(5, 12, 23, 0.96);
+      }
+
+      .conference-lightbox.active {
+        display: flex;
+      }
+
+      .conference-lightbox img {
+        max-width: 100%;
+        max-height: 80vh;
+        object-fit: contain;
+        border-radius: 5px;
+      }
+
+      .lightbox-close,
+      .lightbox-prev,
+      .lightbox-next {
+        position: absolute;
+        border: 0;
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .lightbox-close {
+        top: 25px;
+        right: 35px;
+        font-size: 38px;
+      }
+
+      .lightbox-prev,
+      .lightbox-next {
+        top: 50%;
+        font-size: 30px;
+        padding: 15px;
+        transform: translateY(-50%);
+      }
+
+      .lightbox-prev {
+        left: 20px;
+      }
+
+      .lightbox-next {
+        right: 20px;
+      }
+
+      .lightbox-caption {
+        position: absolute;
+        bottom: 20px;
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      /* Responsive */
+
+      @media (max-width: 992px) {
+        .conference-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .conference-image {
+          height: 300px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .conference-portfolio {
+          padding: 75px 0;
+        }
+
+        .conference-wrap {
+          width: calc(100% - 32px);
+        }
+
+        .conference-heading h2 {
+          letter-spacing: -1.5px;
+        }
+
+        .conference-heading p {
+          font-size: 14px;
+        }
+
+        .conference-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        .conference-image {
+          height: 280px;
+        }
+
+        .conference-filters {
+          gap: 8px;
+        }
+
+        .filter-btn {
+          padding: 9px 14px;
+          font-size: 11px;
+        }
+
+        .conference-footer {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .conference-lightbox {
+          padding: 20px;
+        }
+
+        .lightbox-prev {
+          left: 0;
+        }
+
+        .lightbox-next {
+          right: 0;
+        }
+      }
+    </style>
   </head>
   <body>
-    HELLO
+    <section class="conference-portfolio" id="conference-portfolio">
+      <div class="conference-wrap">
+        <div class="conference-heading">
+          <div class="conference-eyebrow">
+            <span></span>
+            OUR EXPERIENCE
+          </div>
+
+          <h2>
+            Moments That Make
+            <span>an Impact.</span>
+          </h2>
+
+          <p>
+            Explore our conference and event portfolio, showcasing experiences
+            designed to connect people, inspire ideas, and create lasting
+            impressions.
+          </p>
+        </div>
+
+        <div class="conference-filters">
+          <button class="filter-btn active" data-filter="all">
+            All Events
+          </button>
+          <button class="filter-btn" data-filter="conference">
+            Conferences
+          </button>
+          <button class="filter-btn" data-filter="launch">
+            Product Launches
+          </button>
+          <button class="filter-btn" data-filter="workshop">Workshops</button>
+        </div>
+
+        <div class="conference-grid">
+          <article class="conference-card" data-category="conference">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=85"
+                alt="Corporate conference"
+                loading="lazy"
+              />
+              <div class="conference-overlay">
+                <span>Conference</span>
+                <h3>Corporate Conferences</h3>
+                <button class="view-image" aria-label="View image">
+                  <span>↗</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="conference-card" data-category="launch">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=85"
+                alt="Product launch event"
+                loading="lazy"
+              />
+              <div class="conference-overlay">
+                <span>Product Launch</span>
+                <h3>Brand Experiences</h3>
+                <button class="view-image" aria-label="View image">
+                  <span>↗</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="conference-card" data-category="conference">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1000&q=85"
+                alt="Business event speaker"
+                loading="lazy"
+              />
+              <div class="conference-overlay">
+                <span>Conference</span>
+                <h3>Business Summits</h3>
+                <button class="view-image" aria-label="View image">
+                  <span>↗</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="conference-card" data-category="workshop">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1000&q=85"
+                alt="Professional workshop"
+                loading="lazy"
+              />
+              <div class="conference-overlay">
+                <span>Workshop</span>
+                <h3>Interactive Workshops</h3>
+                <button class="view-image" aria-label="View image">
+                  <span>↗</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="conference-card" data-category="conference">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=85"
+                alt="Conference networking"
+                loading="lazy"
+              />
+              <div class="conference-overlay">
+                <span>Conference</span>
+                <h3>Networking Events</h3>
+                <button class="view-image" aria-label="View image">
+                  <span>↗</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="conference-card" data-category="launch">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=1000&q=85"
+                alt="Corporate event production"
+                loading="lazy"
+              />
+              <div class="conference-overlay">
+                <span>Product Launch</span>
+                <h3>Exclusive Launch Events</h3>
+                <button class="view-image" aria-label="View image">
+                  <span>↗</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- <div class="conference-footer">
+          <p>Every event tells a story. Let's create yours.</p>
+          <a href="#contact" class="conference-cta">
+            Plan Your Event <span>↗</span>
+          </a>
+        </div> -->
+      </div>
+    </section>
+
+    <!-- Image Lightbox -->
+    <div class="conference-lightbox" id="conferenceLightbox">
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <button class="lightbox-prev" aria-label="Previous image">
+        &#10094;
+      </button>
+      <img src="" alt="Conference preview" id="lightboxImage" />
+      <button class="lightbox-next" aria-label="Next image">&#10095;</button>
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const cards = [...document.querySelectorAll(".conference-card")];
+        const filters = document.querySelectorAll(".filter-btn");
+
+        const lightbox = document.getElementById("conferenceLightbox");
+        const lightboxImage = document.getElementById("lightboxImage");
+        const lightboxCaption = document.getElementById("lightboxCaption");
+
+        const closeBtn = document.querySelector(".lightbox-close");
+        const prevBtn = document.querySelector(".lightbox-prev");
+        const nextBtn = document.querySelector(".lightbox-next");
+
+        let visibleCards = [];
+        let currentIndex = 0;
+
+        // Filter events
+        function updateVisibleCards(filter = "all") {
+          cards.forEach((card) => {
+            const category = card.dataset.category;
+            const show = filter === "all" || category === filter;
+
+            card.classList.toggle("hidden", !show);
+          });
+
+          visibleCards = cards.filter(
+            (card) => !card.classList.contains("hidden"),
+          );
+        }
+
+        filters.forEach((button) => {
+          button.addEventListener("click", () => {
+            filters.forEach((btn) => btn.classList.remove("active"));
+
+            button.classList.add("active");
+
+            updateVisibleCards(button.dataset.filter);
+          });
+        });
+
+        updateVisibleCards();
+
+        // Lightbox
+        function openLightbox(index) {
+          currentIndex = index;
+          updateLightbox();
+
+          lightbox.classList.add("active");
+          document.body.style.overflow = "hidden";
+        }
+
+        function updateLightbox() {
+          const card = visibleCards[currentIndex];
+
+          if (!card) return;
+
+          const img = card.querySelector("img");
+          const title = card.querySelector("h3");
+
+          lightboxImage.src = img.src;
+          lightboxImage.alt = img.alt;
+          lightboxCaption.textContent = title.textContent;
+        }
+
+        function closeLightbox() {
+          lightbox.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+
+        function nextImage() {
+          currentIndex = (currentIndex + 1) % visibleCards.length;
+          updateLightbox();
+        }
+
+        function prevImage() {
+          currentIndex =
+            (currentIndex - 1 + visibleCards.length) % visibleCards.length;
+
+          updateLightbox();
+        }
+
+        cards.forEach((card) => {
+          card.addEventListener("click", () => {
+            const index = visibleCards.indexOf(card);
+
+            if (index !== -1) {
+              openLightbox(index);
+            }
+          });
+        });
+
+        closeBtn.addEventListener("click", closeLightbox);
+        nextBtn.addEventListener("click", nextImage);
+        prevBtn.addEventListener("click", prevImage);
+
+        lightbox.addEventListener("click", (event) => {
+          if (event.target === lightbox) {
+            closeLightbox();
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (!lightbox.classList.contains("active")) return;
+
+          if (event.key === "Escape") closeLightbox();
+          if (event.key === "ArrowRight") nextImage();
+          if (event.key === "ArrowLeft") prevImage();
+        });
+      });
+    </script>
   </body>
 </html>
