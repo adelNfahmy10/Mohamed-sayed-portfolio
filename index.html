@@ -1,9 +1,11 @@
+```html
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta name="theme-color" content="#ffffff" />
+    <title>Conference Portfolio | Tradeline</title>
 
     <style>
       .conference-portfolio {
@@ -19,7 +21,7 @@
       }
 
       .conference-heading {
-        max-width: 720px;
+        max-width: 760px;
         margin-bottom: 45px;
       }
 
@@ -53,7 +55,7 @@
       }
 
       .conference-heading p {
-        max-width: 600px;
+        max-width: 650px;
         color: #687386;
         font-size: 16px;
         line-height: 1.8;
@@ -138,11 +140,10 @@
         color: #fff;
         background: linear-gradient(
           180deg,
-          transparent 20%,
-          rgba(0, 0, 0, 0.15) 45%,
-          rgba(0, 0, 0, 0.82) 100%
+          transparent 10%,
+          rgba(0, 0, 0, 0.2) 40%,
+          rgba(0, 0, 0, 0.88) 100%
         );
-        transition: background 0.3s ease;
       }
 
       .conference-overlay > span {
@@ -151,21 +152,29 @@
         letter-spacing: 1.5px;
         text-transform: uppercase;
         color: #80bdff;
-        margin-bottom: 8px;
+        margin-bottom: 9px;
       }
 
       .conference-overlay h3 {
-        max-width: 80%;
-        font-size: 21px;
+        max-width: 85%;
+        font-size: 20px;
         font-weight: 650;
-        margin: 0;
+        margin: 0 0 7px;
         line-height: 1.35;
+      }
+
+      .conference-overlay p {
+        max-width: 85%;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 12px;
+        line-height: 1.5;
+        margin: 0;
       }
 
       .view-image {
         position: absolute;
         right: 22px;
-        bottom: 23px;
+        bottom: 25px;
         width: 42px;
         height: 42px;
         border: 1px solid rgba(255, 255, 255, 0.5);
@@ -184,45 +193,19 @@
         transform: rotate(45deg);
       }
 
-      /* Footer */
+      /* Counter */
 
-      .conference-footer {
+      .conference-count {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        gap: 20px;
-        padding-top: 38px;
-        margin-top: 42px;
-        border-top: 1px solid #e9edf2;
-      }
-
-      .conference-footer p {
-        margin: 0;
+        gap: 8px;
+        margin-bottom: 22px;
         color: #687386;
-        font-size: 15px;
-      }
-
-      .conference-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 20px;
-        padding: 15px 23px;
-        border-radius: 5px;
-        background: #0077ed;
-        color: #fff;
-        text-decoration: none;
         font-size: 13px;
-        font-weight: 650;
-        transition: 0.3s ease;
       }
 
-      .conference-cta:hover {
-        background: #005fc0;
-        color: #fff;
-        transform: translateY(-3px);
-      }
-
-      .conference-cta span {
+      .conference-count strong {
+        color: #0077ed;
         font-size: 18px;
       }
 
@@ -285,6 +268,8 @@
       .lightbox-caption {
         position: absolute;
         bottom: 20px;
+        left: 15px;
+        right: 15px;
         color: #fff;
         font-size: 14px;
         text-align: center;
@@ -337,11 +322,6 @@
           font-size: 11px;
         }
 
-        .conference-footer {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-
         .conference-lightbox {
           padding: 20px;
         }
@@ -356,6 +336,7 @@
       }
     </style>
   </head>
+
   <body>
     <section class="conference-portfolio" id="conference-portfolio">
       <div class="conference-wrap">
@@ -366,151 +347,263 @@
           </div>
 
           <h2>
-            Moments That Make
+            Conferences That Make
             <span>an Impact.</span>
           </h2>
 
           <p>
-            Explore our conference and event portfolio, showcasing experiences
-            designed to connect people, inspire ideas, and create lasting
-            impressions.
+            Explore our conference portfolio and discover the events we've been
+            proud to be part of, supporting leading medical societies,
+            universities, and healthcare institutions across Egypt.
           </p>
+        </div>
+
+        <div class="conference-count">
+          <strong>10</strong>
+          <span>Featured Conferences & Events</span>
         </div>
 
         <div class="conference-filters">
           <button class="filter-btn active" data-filter="all">
-            All Events
+            All Conferences
           </button>
-          <button class="filter-btn" data-filter="conference">
-            Conferences
+
+          <button class="filter-btn" data-filter="radiology">Radiology</button>
+
+          <button class="filter-btn" data-filter="medical">
+            Medical Conferences
           </button>
-          <button class="filter-btn" data-filter="launch">
-            Product Launches
+
+          <button class="filter-btn" data-filter="university">
+            Universities
           </button>
-          <button class="filter-btn" data-filter="workshop">Workshops</button>
         </div>
 
         <div class="conference-grid">
-          <article class="conference-card" data-category="conference">
+          <!-- 1. ESTIR -->
+          <article class="conference-card" data-category="radiology">
             <div class="conference-image">
               <img
                 src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=85"
-                alt="Corporate conference"
+                alt="ESTIR Conference"
                 loading="lazy"
               />
+
               <div class="conference-overlay">
-                <span>Conference</span>
-                <h3>Corporate Conferences</h3>
-                <button class="view-image" aria-label="View image">
-                  <span>↗</span>
+                <span>Radiology Conference</span>
+                <h3>ESTIR Conference</h3>
+                <p>Egyptian Society of Therapeutic Interventional Radiology</p>
+                <button class="view-image" aria-label="View ESTIR image">
+                  ↗
                 </button>
               </div>
             </div>
           </article>
 
-          <article class="conference-card" data-category="launch">
+          <!-- 2. Radio Alex -->
+          <article class="conference-card" data-category="university">
             <div class="conference-image">
               <img
                 src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=85"
-                alt="Product launch event"
+                alt="Radio Alex Conference"
                 loading="lazy"
               />
+
               <div class="conference-overlay">
-                <span>Product Launch</span>
-                <h3>Brand Experiences</h3>
-                <button class="view-image" aria-label="View image">
-                  <span>↗</span>
+                <span>University Conference</span>
+                <h3>Radio Alex</h3>
+                <p>Alexandria University</p>
+                <button class="view-image" aria-label="View Radio Alex image">
+                  ↗
                 </button>
               </div>
             </div>
           </article>
 
-          <article class="conference-card" data-category="conference">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1000&q=85"
-                alt="Business event speaker"
-                loading="lazy"
-              />
-              <div class="conference-overlay">
-                <span>Conference</span>
-                <h3>Business Summits</h3>
-                <button class="view-image" aria-label="View image">
-                  <span>↗</span>
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <article class="conference-card" data-category="workshop">
-            <div class="conference-image">
-              <img
-                src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1000&q=85"
-                alt="Professional workshop"
-                loading="lazy"
-              />
-              <div class="conference-overlay">
-                <span>Workshop</span>
-                <h3>Interactive Workshops</h3>
-                <button class="view-image" aria-label="View image">
-                  <span>↗</span>
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <article class="conference-card" data-category="conference">
+          <!-- 3. Oncology -->
+          <article class="conference-card" data-category="medical">
             <div class="conference-image">
               <img
                 src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=85"
-                alt="Conference networking"
+                alt="Oncology Conference"
                 loading="lazy"
               />
+
               <div class="conference-overlay">
-                <span>Conference</span>
-                <h3>Networking Events</h3>
-                <button class="view-image" aria-label="View image">
-                  <span>↗</span>
+                <span>Medical Conference</span>
+                <h3>Oncology Conference</h3>
+                <p>Minia Oncology Institute</p>
+                <button class="view-image" aria-label="View Oncology image">
+                  ↗
                 </button>
               </div>
             </div>
           </article>
 
-          <article class="conference-card" data-category="launch">
+          <!-- 4. ESLM -->
+          <article class="conference-card" data-category="medical">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1000&q=85"
+                alt="ESLM Conference"
+                loading="lazy"
+              />
+
+              <div class="conference-overlay">
+                <span>Medical Conference</span>
+                <h3>ESLM Conference</h3>
+                <p>Egyptian Society of Laboratory Medicine</p>
+                <button class="view-image" aria-label="View ESLM image">
+                  ↗
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5. Shira -->
+          <article class="conference-card" data-category="radiology">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1000&q=85"
+                alt="Shira Conference"
+                loading="lazy"
+              />
+
+              <div class="conference-overlay">
+                <span>Radiology Conference</span>
+                <h3>Shira Conference</h3>
+                <p>Zagazig</p>
+                <button class="view-image" aria-label="View Shira image">
+                  ↗
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6. Benha -->
+          <article class="conference-card" data-category="university">
             <div class="conference-image">
               <img
                 src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=1000&q=85"
-                alt="Corporate event production"
+                alt="Benha University Radiology Conference"
                 loading="lazy"
               />
+
               <div class="conference-overlay">
-                <span>Product Launch</span>
-                <h3>Exclusive Launch Events</h3>
-                <button class="view-image" aria-label="View image">
-                  <span>↗</span>
+                <span>University Conference</span>
+                <h3>Benha University Radiology Conference</h3>
+                <p>Benha University</p>
+                <button class="view-image" aria-label="View Benha image">
+                  ↗
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 7. Anesthesia -->
+          <article class="conference-card" data-category="medical">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=1000&q=85"
+                alt="Anesthesia Conference"
+                loading="lazy"
+              />
+
+              <div class="conference-overlay">
+                <span>Medical Conference</span>
+                <h3>Anesthesia Conference</h3>
+                <p>Kasr Al Ainy</p>
+                <button class="view-image" aria-label="View Anesthesia image">
+                  ↗
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 8. Ain Shams -->
+          <article class="conference-card" data-category="radiology university">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1503428593586-e225b39bddfe?auto=format&fit=crop&w=1000&q=85"
+                alt="Ain Shams Radiology Conference"
+                loading="lazy"
+              />
+
+              <div class="conference-overlay">
+                <span>Radiology Conference</span>
+                <h3>Ain Shams Radiology Conference</h3>
+                <p>Ain Shams University</p>
+                <button class="view-image" aria-label="View Ain Shams image">
+                  ↗
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 9. Kasr Al Ainy -->
+          <article class="conference-card" data-category="radiology university">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1000&q=85"
+                alt="Kasr Al Ainy Radiology Conference"
+                loading="lazy"
+              />
+
+              <div class="conference-overlay">
+                <span>Radiology Conference</span>
+                <h3>Kasr Al Ainy Radiology Conference</h3>
+                <p>Kasr Al Ainy</p>
+                <button class="view-image" aria-label="View Kasr Al Ainy image">
+                  ↗
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 10. EIRC 2025 -->
+          <article class="conference-card" data-category="radiology medical">
+            <div class="conference-image">
+              <img
+                src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1000&q=85"
+                alt="The 4th Egyptian International Radiology Conference EIRC 2025"
+                loading="lazy"
+              />
+
+              <div class="conference-overlay">
+                <span>International Conference · 2025</span>
+                <h3>
+                  The 4th Egyptian International Radiology Conference (EIRC
+                  2025)
+                </h3>
+                <p>Ministry of Health and Population (MOHP)</p>
+                <button class="view-image" aria-label="View EIRC image">
+                  ↗
                 </button>
               </div>
             </div>
           </article>
         </div>
-
-        <!-- <div class="conference-footer">
-          <p>Every event tells a story. Let's create yours.</p>
-          <a href="#contact" class="conference-cta">
-            Plan Your Event <span>↗</span>
-          </a>
-        </div> -->
       </div>
     </section>
 
     <!-- Image Lightbox -->
-    <div class="conference-lightbox" id="conferenceLightbox">
+    <div
+      class="conference-lightbox"
+      id="conferenceLightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Conference image preview"
+    >
       <button class="lightbox-close" aria-label="Close">&times;</button>
+
       <button class="lightbox-prev" aria-label="Previous image">
         &#10094;
       </button>
+
       <img src="" alt="Conference preview" id="lightboxImage" />
+
       <button class="lightbox-next" aria-label="Next image">&#10095;</button>
+
       <div class="lightbox-caption" id="lightboxCaption"></div>
     </div>
 
@@ -530,11 +623,11 @@
         let visibleCards = [];
         let currentIndex = 0;
 
-        // Filter events
+        // Filter conferences
         function updateVisibleCards(filter = "all") {
           cards.forEach((card) => {
-            const category = card.dataset.category;
-            const show = filter === "all" || category === filter;
+            const categories = card.dataset.category.split(" ");
+            const show = filter === "all" || categories.includes(filter);
 
             card.classList.toggle("hidden", !show);
           });
@@ -557,14 +650,6 @@
         updateVisibleCards();
 
         // Lightbox
-        function openLightbox(index) {
-          currentIndex = index;
-          updateLightbox();
-
-          lightbox.classList.add("active");
-          document.body.style.overflow = "hidden";
-        }
-
         function updateLightbox() {
           const card = visibleCards[currentIndex];
 
@@ -578,17 +663,31 @@
           lightboxCaption.textContent = title.textContent;
         }
 
+        function openLightbox(index) {
+          currentIndex = index;
+          updateLightbox();
+
+          lightbox.classList.add("active");
+          document.body.style.overflow = "hidden";
+
+          closeBtn.focus();
+        }
+
         function closeLightbox() {
           lightbox.classList.remove("active");
           document.body.style.overflow = "";
         }
 
         function nextImage() {
+          if (!visibleCards.length) return;
+
           currentIndex = (currentIndex + 1) % visibleCards.length;
           updateLightbox();
         }
 
         function prevImage() {
+          if (!visibleCards.length) return;
+
           currentIndex =
             (currentIndex - 1 + visibleCards.length) % visibleCards.length;
 
@@ -599,9 +698,7 @@
           card.addEventListener("click", () => {
             const index = visibleCards.indexOf(card);
 
-            if (index !== -1) {
-              openLightbox(index);
-            }
+            if (index !== -1) openLightbox(index);
           });
         });
 
@@ -610,9 +707,7 @@
         prevBtn.addEventListener("click", prevImage);
 
         lightbox.addEventListener("click", (event) => {
-          if (event.target === lightbox) {
-            closeLightbox();
-          }
+          if (event.target === lightbox) closeLightbox();
         });
 
         document.addEventListener("keydown", (event) => {
@@ -626,3 +721,4 @@
     </script>
   </body>
 </html>
+```
